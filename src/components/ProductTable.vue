@@ -3,14 +3,14 @@
     <table v-if="products.length > 0" class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th sope="col">Product #</th>
-                <th sope="col">Product Name</th>
-                <th sope="col">Product Owner</th>
-                <th sope="col">Developers</th>
-                <th sope="col">Scrum Master</th>
-                <th sope="col">Start Date</th>
-                <th sope="col">Methodology</th>
-                <th sope="col"></th>
+                <th scope="col">Product #</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Owner</th>
+                <th scope="col">Developers</th>
+                <th scope="col">Scrum Master</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">Methodology</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -48,5 +48,9 @@ export default {
 <style scoped>
 .d-flex {
     gap: 8px;
+}
+
+th {
+    vertical-align: middle;
 }
 </style>

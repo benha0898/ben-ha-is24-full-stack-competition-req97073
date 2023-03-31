@@ -1,0 +1,142 @@
+openapi: 3.0.3
+info:
+  title: citz-imb-full-stack-code-challenge-req97073
+  description: |-
+    This is the documentation for the REST API implemented for the coding challenge from the Province of British Columbia.
+    - Candidate: **Ben Ha**
+    - [My GitHub repo](https://github.com/benha0898/ben-ha-is24-full-stack-competition-req97073)
+    - [Instructions for the assignment](https://github.com/bcgov/citz-imb-full-stack-code-challenge-req97073)
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /products:
+    get:
+      tags:
+        - Products
+      summary: Get a list of products
+      description: A scrum master name and a developer name can be provided as query strings
+      parameters:
+        - name: scrumMaster
+          in: query
+          description: Name of the scrum master to search for
+          required: false
+          schema:
+            type: string
+        - name: developer
+          in: query
+          description: Name of the developer to search for
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      tags:
+        - Products
+      summary: Add a new product
+      requestBody:
+        description: Create a new product to add to the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /products/{id}:
+    put:
+      tags:
+        - Products
+      summary: Updating an existing product
+      parameters:
+        - name: id
+          in: path
+          description: ID of product to update
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: An object used to update the product
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Product ID not found
+    delete:
+      tags:
+        - Products
+      summary: Remove a product
+      parameters:
+        - name: id
+          in: path
+          description: ID of product to remove
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful
+        '400':
+          description: Product ID not found
+
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - productName
+        - scrumMaster
+        - productOwner
+        - developers
+        - startDate
+      properties:
+        id:
+          type: integer
+          example: 13
+        productName:
+          type: string
+          example: New Website
+        scrumMaster:
+          type: string
+          example: Aida Estrada
+        productOwner:
+          type: string
+          example: Joan Wooten
+        developers:
+          type: array
+          items:
+            type: string
+          example: [John Doe, Jane Smith]
+        startDate:
+          type: string
+          example: 2023/03/31
+  requestBodies:
+    Product:
+      description: Product object to be added or updated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Product'

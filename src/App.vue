@@ -1,9 +1,10 @@
 <template>
   <div class="fixed-top d-flex justify-content-between px-4 py-2">
-    <h2 class="align-self-center">IMB Products <i class="fas fa-hammer fa-2xs"></i></h2>
+    <h2 class="align-self-center">IMB Products</h2>
     <button class="btn btn-primary align-self-center" @click="showModal(true)">Add Product</button>
   </div>
   <div class="px-4 pt-2">
+    <SearchComponent :search="this.search"></SearchComponent>
     <ProductTable :products="products" @edit="(product) => showModal(true, product)" @remove="onRemove"></ProductTable>
   </div>
   <ProductFormModal v-show="showingModal" @close-modal="showModal(false)" :submitForm="this.submitForm" :product="selectedProduct"></ProductFormModal>
@@ -12,16 +13,19 @@
 <script>
 import ProductTable from './components/ProductTable.vue';
 import ProductFormModal from './components/ProductFormModal.vue';
+import SearchComponent from './components/SearchComponent.vue';
 
 export default {
   name: 'App',
   components: {
     ProductTable,
     ProductFormModal,
+    SearchComponent,
   },
   data() {
     return {
       products: [],
+      fetchedAll: true,
       showingModal: false,
       selectedProduct: null,
     }
@@ -139,6 +143,20 @@ export default {
       if (confirmed) {
         await this.removeProduct(product.id);
       }
+    },
+
+    async search(searchKey, searchMode) {
+      if (!searchKey && !this.fetchedAll) {
+        this.products = await this.getProducts();
+        this.fetchedAll = true;
+      } else if (searchKey) {
+        if (searchMode == 0) {
+          this.products = await this.getProductByScrumMaster(searchKey);
+        } else {
+          this.products = await this.getProductByDeveloper(searchKey);
+        }
+        this.fetchedAll = false;
+      }
     }
   },
   async created() {
@@ -152,8 +170,8 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
   margin-top: 60px;
+  font-size: 14px;
 }
 
 .fixed-top {

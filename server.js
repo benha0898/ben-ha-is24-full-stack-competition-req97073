@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 import bodyParser from 'body-parser';
 import fs from 'fs';
+import path from 'path';
 
 const app = express();
 const router = express.Router();
@@ -20,6 +21,7 @@ app.listen(PORT, () => console.log(`Server is running on port: http://localhost:
 router.get('/', (req, res) => res.json({message: 'The API is running successfully.'}));
 
 // Define all endpoints
+router.get('/api-docs', getDocumentation);
 router.get('/products', getProducts);
 router.post('/products', addProduct);
 router.delete('/products/:id', removeProduct);
@@ -39,8 +41,9 @@ async function getProducts(req, res) {
                 let developer = req.query.developer;
 
                 if (scrumMaster) {
-                    jsonData = jsonData.filter((product) => product.scrumMasterName.toLowerCase().includes(scrumMaster.toLowerCase()));
-                } else if (developer) {
+                    jsonData = jsonData.filter((product) => product.scrumMaster.toLowerCase().includes(scrumMaster.toLowerCase()));
+                }
+                if (developer) {
                     jsonData = jsonData.filter((product) => product.developers.some((name) => name.toLowerCase().includes(developer.toLowerCase())));
                 }
                 res.json(jsonData);
@@ -140,6 +143,12 @@ async function editProduct(req, res) {
     } catch (err) {
         handleError(res, 500, err.message);
     }
+}
+
+// GET Swagger Documentation
+function getDocumentation(req, res) {
+    res.set('Content-type', 'text/html');
+    res.sendFile('documentation.html', {root: '.'});
 }
 
 function handleError(res, status, message) {

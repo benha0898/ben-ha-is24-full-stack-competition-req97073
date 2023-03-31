@@ -1,24 +1,23 @@
 # ben-ha-is24-full-stack-competition-req97073
 
+This is the submission for the coding challenge as part of the application for Province of BC's Full Stack Developer position.\
+Candidate Name: **Ben Ha**\
+Date: **March 31, 2023**
 ## Project setup
+### Install packages
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run backend code
+```
+npm run backend
+```
+
+### Run frontend code
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+The app will run on [`http://localhost:8080/`](http://localhost:8080/).

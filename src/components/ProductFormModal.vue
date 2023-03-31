@@ -2,38 +2,45 @@
     <div class="modal-overlay" @click="$emit('close-modal')">
         <div class="modal-content" @click.stop="">
             <h3>{{ product ? 'Edit' : 'Add' }} Product</h3>
-            <form action="" @submit="onSubmit">
+            <form @submit="onSubmit">
                 <div class="form-group required">
                     <label for="productName">Product Name</label>
-                    <input type="text" class="form-control" id="productName" v-model="productName" placeholder="Product Name" required>
+                    <input type="text" class="form-control" id="productName" v-model="productName"
+                        placeholder="Product Name" required>
                 </div>
                 <div class="form-group required">
                     <label for="productOwner">Product Owner</label>
-                    <input type="text" class="form-control" id="productOwner" v-model="productOwner" placeholder="Product Owner" required>
+                    <input type="text" class="form-control" id="productOwner" v-model="productOwner"
+                        placeholder="Product Owner" required>
                 </div>
                 <div class="form-group required">
                     <label for="scrumMaster">Scrum Master</label>
-                    <input type="text" class="form-control" id="scrumMaster" v-model="scrumMaster" placeholder="Scrum Master" required>
+                    <input type="text" class="form-control" id="scrumMaster" v-model="scrumMaster"
+                        placeholder="Scrum Master" required>
                 </div>
                 <div class="form-group required">
                     <label for="developers">Developers</label>
-                    <input type="text" class="form-control" id="developers" v-model="developers" placeholder="Developers" required>
-                    <small class="form-text text-muted">Separate developer names by comma</small>
+                    <input type="text" class="form-control" id="developers" v-model="developers" placeholder="Developers"
+                        required>
+                    <small class="form-text text-muted">Separate developer names with a comma</small>
                 </div>
                 <div class="form-group required">
                     <label for="startDate">Start Date</label>
-                    <input type="text" class="form-control" id="startDate" v-model="startDate" placeholder="Start Date" required>
+                    <input type="text" class="form-control" id="startDate" v-model="startDate" placeholder="Start Date"
+                        required>
                 </div>
                 <div class="form-group required">
                     <label for="methodology">Methodology</label>
-                    <input type="text" class="form-control" id="methodology" v-model="methodology" placeholder="Methodology" required>
+                    <input type="text" class="form-control" id="methodology" v-model="methodology" placeholder="Methodology"
+                        required>
                 </div>
                 <div class="row">
-                    <div v-if="isLoading" class="spinner-border mx-auto" role="status">
+                    <div v-if="isLoading" class="spinner-border mx-auto text-primary" role="status">
                     </div>
-                    <button v-else type="submit" class="btn btn-primary btn-lg w-50 mx-auto" id="modalButton">{{ product ? 'Save' : 'Submit'}}</button>
+                    <button v-else type="submit" class="btn btn-primary btn-lg w-50 mx-auto" id="modalButton">{{ product ?
+                        'Save' : 'Submit' }}</button>
                 </div>
-                
+
             </form>
         </div>
     </div>
@@ -48,7 +55,7 @@ export default {
     },
     watch: {
         // eslint-disable-next-line no-unused-vars
-        product: function(newVal, oldVal) {
+        product: function (newVal, oldVal) {
             this.productName = newVal ? newVal.productName : '';
             this.scrumMaster = newVal ? newVal.scrumMaster : '';
             this.productOwner = newVal ? newVal.productOwner : '';
@@ -56,7 +63,7 @@ export default {
             this.startDate = newVal ? newVal.startDate : '';
             this.methodology = newVal ? newVal.methodology : '';
         },
-      },
+    },
     data() {
         return {
             productName: '',
@@ -95,38 +102,38 @@ export default {
 
 <style scoped>
 .form-group.required label:after {
-  content:" *";
-  color:red;
+    content: " *";
+    color: red;
 }
+
 .form-group {
     padding-bottom: 16px;
 }
 
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  background-color: #000000da;
-  z-index: 2;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #000000da;
+    z-index: 2;
 }
 
 .modal-content {
-  text-align: left;
-  background-color: white;
-  width: 500px;
-  height: fit-content;
-  min-height: 10;
-  margin-top: 10%;
-  padding: 60px 16px;
-  border-radius: 20px;
-}
-.close {
-  margin: 10% 0 0 16px;
-  cursor: pointer;
+    text-align: left;
+    background-color: white;
+    width: 500px;
+    height: fit-content;
+    min-height: 10;
+    margin-top: 10%;
+    padding: 60px 16px;
+    border-radius: 20px;
 }
 
-</style>
+.close {
+    margin: 10% 0 0 16px;
+    cursor: pointer;
+}</style>
